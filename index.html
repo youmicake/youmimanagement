@@ -1,335 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Cake Design Cost Calculator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Youmi Cake Manager</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{color-scheme:light dark;--bg:#f8fafc;--card:#fff;--tx:#1e293b;--mut:#64748b;--bd:#e2e8f0;--br:#e11d48;--soft:#fff1f2;--inp:#f1f5f9;--head:#db2777;--tot:#0f172a;--gold:#facc15;--ok:#34d399;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1020;--card:#151b2e;--tx:#e5e7eb;--mut:#94a3b8;--bd:#27304a;--br:#fb7185;--soft:#3b1d2a;--inp:#1e2640;--head:#9d174d;--tot:#050814}}
+:root[data-theme="dark"]{--bg:#0b1020;--card:#151b2e;--tx:#e5e7eb;--mut:#94a3b8;--bd:#27304a;--br:#fb7185;--soft:#3b1d2a;--inp:#1e2640;--head:#9d174d;--tot:#050814}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;padding-bottom:84px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--head);z-index:10}
+header{background:var(--head);color:#fff;padding:14px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:9;box-shadow:0 2px 8px #0003}
+.w{max-width:520px;margin:0 auto}
+header .w{display:flex;justify-content:space-between;align-items:center}
+h1{font-size:19px;margin:0}.pill{font-size:11px;font-weight:700;background:#0003;padding:3px 10px;border-radius:99px}
+main{padding:14px 14px 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px}
+.row{display:flex;gap:8px;align-items:center}.grow{flex:1;min-width:0}
+h2{font-size:15px;margin:0}small{display:block;color:var(--mut);font-size:11.5px}
+label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;color:var(--mut);margin:10px 0 4px}
+input,select{width:100%;background:var(--inp);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:10px 12px;font:inherit}
+input:focus,select:focus{outline:2px solid var(--br)}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:9px 14px;font-weight:700;font-size:13px;background:var(--soft);color:var(--br)}
+button.pri{background:var(--br);color:#fff}button.sm{padding:6px 10px;font-size:12px}
+.tools{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.line{display:flex;align-items:center;gap:8px;background:var(--inp);border-radius:12px;padding:8px 10px;margin-top:8px}
+.line b{font-size:13px}.line .q{width:78px;padding:6px 8px;text-align:right}.u{font-size:12px;color:var(--mut);width:42px}
+.lc{width:62px;text-align:right}.x{background:none;color:var(--mut);padding:2px 6px;font-size:20px}
+.empty{color:var(--mut);text-align:center;margin:14px 0 4px}
+.tot{background:var(--tot);color:#fff;border-radius:16px;padding:16px;margin-bottom:12px}
+.tot .big{font-size:26px;font-weight:800;color:var(--gold)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tot small{color:#94a3b8}
+.tot .r{display:flex;justify-content:space-between;margin-top:6px;font-size:13px}
+.tot hr{border:0;border-top:1px solid #334155;margin:12px 0}
+.tot input{background:#1e293b;border-color:#334155;color:#fff}
+.mrow{display:flex;gap:8px;align-items:center;padding:11px 14px;border-top:1px solid var(--bd);cursor:pointer;text-align:left;width:100%;background:none;color:var(--tx);border-radius:0;font-weight:400}
+.mrow:first-child{border-top:0}.mrow span:last-child{text-align:right;font-weight:700;font-size:13px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--bd);padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px));z-index:9}
+nav .w{display:flex}nav button{flex:1;background:none;color:var(--mut);border-radius:0;font-size:12px}
+nav button.on{color:var(--br)}nav i{display:block;font-style:normal;font-size:20px}
+#dlg{position:fixed;inset:0;background:#0008;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
+#dlg>div{background:var(--card);border-radius:18px;padding:18px;width:100%;max-width:380px;max-height:90%;overflow:auto}
+#dlg h3{margin:0 0 4px;font-size:17px}.dact{display:flex;gap:8px;margin-top:16px}.dact button{flex:1}
+.tag{font-size:11px;font-weight:700;background:var(--soft);color:var(--br);padding:3px 8px;border-radius:99px;white-space:nowrap}.oh,.orow{display:flex;gap:8px;font-size:12.5px;padding:8px 2px;align-items:center}.oh{color:var(--mut);margin-top:10px;font-size:11px;text-transform:uppercase;font-weight:700}.oh span+span,.oh b+b,.orow span+span{width:70px;text-align:right}.orow{width:100%;background:none;color:var(--tx);border-radius:0;font-weight:400;text-align:left;border-top:1px solid var(--bd)}.row select{flex:1}.ord{display:block;width:100%;text-align:left;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px;font-weight:400}.kv{display:flex;justify-content:space-between;font-size:13.5px;margin-top:5px}.kv.t{border-top:1px solid var(--bd);padding-top:8px;margin-top:8px;font-size:15px}.kv.t b{color:var(--br)}#login{position:fixed;inset:0;background:var(--bg);z-index:30;display:flex;align-items:center;justify-content:center;padding:20px}.err{color:#ef4444;font-size:13px;min-height:20px;margin-top:8px}.brand{display:flex;align-items:center}.lg{width:40px;height:40px;border-radius:50%;margin-right:10px;border:2px solid #fff8}.lgb{display:block;width:130px;height:130px;border-radius:50%;margin:0 auto 10px}.r2{margin-top:14px;text-align:right}.dng{background:none;color:#ef4444;margin-top:8px;width:100%}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 pb-20 select-none">
-
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-4 sticky top-0 z-30 shadow-md">
-    <div class="flex justify-between items-center max-w-lg mx-auto">
-      <div class="flex items-center space-x-2">
-        <i class="fa-solid fa-cake-candles text-2xl text-yellow-300"></i>
-        <h1 class="font-bold text-xl tracking-wide">Cake Cost Manager</h1>
-      </div>
-      <span class="bg-pink-700/50 text-xs px-2.5 py-1 rounded-full font-semibold border border-pink-300/30">MAD (DH)</span>
-    </div>
-  </header>
-
-  <!-- Main Content Area -->
-  <main class="max-w-lg mx-auto p-4 space-y-4">
-
-    <!-- TAB 1: CALCULATEUR DE GÂTEAU -->
-    <div id="tab-calculator" class="tab-content space-y-4">
-      
-      <!-- Select Preset or Custom Cake -->
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Sélectionner ou Créer un projet</label>
-        <div class="flex space-x-2">
-          <select id="cake-select" onchange="loadCakePreset()" class="w-full bg-slate-50 border border-slate-200 text-slate-700 py-2.5 px-3 rounded-xl font-medium focus:outline-none focus:ring-2 focus:ring-pink-500">
-            <option value="custom">-- Créer un nouveau Gâteau --</option>
-            <option value="MINI CAKE">MINI CAKE</option>
-            <option value="CAKE 4P">CAKE 4P</option>
-            <option value="CAKEDESIGN 4P">CAKEDESIGN 4P</option>
-            <option value="CAKEDESIGN 8P">CAKEDESIGN 8P</option>
-            <option value="CAKE DESIGN 10/15P" selected>CAKE DESIGN 10/15P</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Ingredient Usage List -->
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="font-bold text-slate-700 text-base flex items-center gap-2">
-            <i class="fa-solid fa-basket-shopping text-pink-500"></i> Ingrédients & Frais utilisés
-          </h2>
-          <button onclick="openAddModal()" class="bg-pink-50 hover:bg-pink-100 text-pink-600 text-xs font-bold py-1.5 px-3 rounded-lg border border-pink-200 transition">
-            + Ajouter
-          </button>
-        </div>
-
-        <div id="cake-ingredients-list" class="space-y-2 max-h-80 overflow-y-auto no-scrollbar">
-          <!-- Dynamic Items inserted here -->
-        </div>
-      </div>
-
-      <!-- Total Summary Card -->
-      <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-5 rounded-2xl shadow-lg space-y-3">
-        <div class="flex justify-between items-center">
-          <span class="text-sm text-slate-300 font-medium">Coût de revient total :</span>
-          <span id="total-cake-cost" class="text-2xl font-black text-yellow-400">0.00 MAD</span>
-        </div>
-        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-700/60 text-xs">
-          <div>
-            <span class="text-slate-400 block">Prix de vente conseillé (+50%) :</span>
-            <span id="suggested-price-1" class="font-bold text-slate-200">0.00 MAD</span>
-          </div>
-          <div>
-            <span class="text-slate-400 block">Prix de vente conseillé (+100%) :</span>
-            <span id="suggested-price-2" class="font-bold text-emerald-400">0.00 MAD</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- TAB 2: BASE DE DONNÉES MATIÈRES PREMIÈRES -->
-    <div id="tab-database" class="tab-content hidden space-y-4">
-      
-      <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
-        <div>
-          <h2 class="font-bold text-slate-800">Stock & Prix d'Achat</h2>
-          <p class="text-xs text-slate-400">Base des coûts de vos matières premières</p>
-        </div>
-        <button onclick="openAddMatModal()" class="bg-rose-500 hover:bg-rose-600 text-white text-xs font-bold py-2 px-3 rounded-xl shadow-sm transition">
-          + Nouvelle Matière
-        </button>
-      </div>
-
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        <div class="p-3 bg-slate-50 border-b border-slate-100 font-bold text-xs text-slate-500 uppercase grid grid-cols-12 gap-1">
-          <span class="col-span-5">Matière / Service</span>
-          <span class="col-span-3 text-center">Achat</span>
-          <span class="col-span-4 text-right">Prix/Unité</span>
-        </div>
-        <div id="materials-list" class="divide-y divide-slate-100 max-h-96 overflow-y-auto text-sm">
-          <!-- Dynamic Items inserted here -->
-        </div>
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- Bottom Navigation Bar -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 py-2 px-6 shadow-lg z-30">
-    <div class="flex justify-around items-center max-w-lg mx-auto">
-      <button onclick="switchTab('calculator')" id="nav-calculator" class="flex flex-col items-center text-pink-500 font-semibold text-xs space-y-1">
-        <i class="fa-solid fa-calculator text-lg"></i>
-        <span>Calculateur</span>
-      </button>
-      <button onclick="switchTab('database')" id="nav-database" class="flex flex-col items-center text-slate-400 hover:text-slate-600 font-semibold text-xs space-y-1">
-        <i class="fa-solid fa-boxes-stacked text-lg"></i>
-        <span>Matières</span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Modal: Add/Edit Ingredient to Cake -->
-  <div id="modal-ingredient" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl p-5 w-full max-w-sm space-y-4 shadow-xl">
-      <h3 class="font-bold text-slate-800 text-lg">Ajouter une Matière au Gâteau</h3>
-      
-      <div>
-        <label class="block text-xs font-bold text-slate-500 mb-1">Matière / Service</label>
-        <select id="modal-mat-select" class="w-full bg-slate-50 border border-slate-200 py-2 px-3 rounded-xl text-sm font-medium focus:ring-2 focus:ring-pink-500">
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-xs font-bold text-slate-500 mb-1">Quantité / Nombre</label>
-        <input type="number" id="modal-qty-input" step="any" placeholder="Ex: 1 pour la livraison, 0.15 pour 150g" class="w-full bg-slate-50 border border-slate-200 py-2 px-3 rounded-xl text-sm font-medium focus:ring-2 focus:ring-pink-500">
-        <p class="text-[10px] text-slate-400 mt-1">Note: Pour la livraison, saisissez 1 (1 course = 20 DH).</p>
-      </div>
-
-      <div class="flex space-x-2 pt-2">
-        <button onclick="closeAddModal()" class="w-1/2 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold text-xs">Annuler</button>
-        <button onclick="saveIngredientToCake()" class="w-1/2 py-2.5 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-bold text-xs">Ajouter</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- JavaScript Logic -->
-  <script>
-    // Initial Data based on provided Excel file + Livraison 20 DH
-    let materials = [
-      { id: 1, name: "Farine", price: 10, buyQty: 1, unit: "Kg", unitPrice: 10 },
-      { id: 2, name: "Sucre", price: 10, buyQty: 1, unit: "Kg", unitPrice: 10 },
-      { id: 3, name: "Œufs", price: 1.39, buyQty: 1, unit: "Pièce", unitPrice: 1.39 },
-      { id: 4, name: "Vanille sachet", price: 6, buyQty: 10, unit: "Pièce", unitPrice: 0.6 },
-      { id: 5, name: "crème fraiche", price: 34, buyQty: 1, unit: "Litre", unitPrice: 34 },
-      { id: 6, name: "Gélatine", price: 1.5, buyQty: 1, unit: "Pièce", unitPrice: 1.5 },
-      { id: 7, name: "Feuilletine", price: 10, buyQty: 1, unit: "Gramme", unitPrice: 10 },
-      { id: 8, name: "Crème bueno", price: 12, buyQty: 1, unit: "Gramme", unitPrice: 12 },
-      { id: 9, name: "Crème pistache", price: 18, buyQty: 1, unit: "Gramme", unitPrice: 18 },
-      { id: 10, name: "Pistache", price: 10, buyQty: 1, unit: "Kg", unitPrice: 10 },
-      { id: 11, name: "noisette", price: 10, buyQty: 1, unit: "Gramme", unitPrice: 10 },
-      { id: 12, name: "Noix", price: 10, buyQty: 1, unit: "Kg", unitPrice: 10 },
-      { id: 13, name: "Chocolat riche NOIR", price: 140, buyQty: 1, unit: "Kg", unitPrice: 140 },
-      { id: 14, name: "Chocolat riche BLANC", price: 140, buyQty: 1, unit: "Kg", unitPrice: 140 },
-      { id: 15, name: "Chocolat Normal noir", price: 4, buyQty: 1, unit: "Gramme", unitPrice: 4 },
-      { id: 16, name: "Poudre chocolat CACAO", price: 10, buyQty: 5, unit: "Gramme", unitPrice: 2 },
-      { id: 17, name: "les boules", price: 5, buyQty: 10, unit: "Pièce", unitPrice: 0.5 },
-      { id: 18, name: "topper", price: 6, buyQty: 1, unit: "Pièce", unitPrice: 6 },
-      { id: 19, name: "Pâte à sucre", price: 60, buyQty: 1, unit: "Kg", unitPrice: 60 },
-      { id: 20, name: "Box cake grand", price: 30, buyQty: 1, unit: "Pièce", unitPrice: 30 },
-      { id: 21, name: "Bougie", price: 12, buyQty: 10, unit: "Pièce", unitPrice: 1.2 },
-      { id: 22, name: "Papier couisson", price: 5, buyQty: 8, unit: "Pièce", unitPrice: 0.625 },
-      { id: 23, name: "Papier waffer", price: 4, buyQty: 1, unit: "Pièce", unitPrice: 4 },
-      { id: 24, name: "Fleur normal", price: 5, buyQty: 1, unit: "Pièce", unitPrice: 5 },
-      { id: 25, name: "Fleur artificiel", price: 15, buyQty: 1, unit: "Pièce", unitPrice: 15 },
-      { id: 26, name: "Livraison", price: 20, buyQty: 1, unit: "Course", unitPrice: 20 }
-    ];
-
-    // Current cake recipe items (avec la livraison incluse)
-    let currentRecipe = [
-      { matId: 1, qty: 0.17 },
-      { matId: 2, qty: 0.16 },
-      { matId: 3, qty: 6 },
-      { matId: 4, qty: 2 },
-      { matId: 5, qty: 0.5 },
-      { matId: 6, qty: 4 },
-      { matId: 7, qty: 0.8 },
-      { matId: 8, qty: 1 },
-      { matId: 9, qty: 1 },
-      { matId: 10, qty: 1 },
-      { matId: 11, qty: 1 },
-      { matId: 12, qty: 1 },
-      { matId: 13, qty: 0.15 },
-      { matId: 14, qty: 0.15 },
-      { matId: 15, qty: 0.1 },
-      { matId: 16, qty: 2 },
-      { matId: 17, qty: 10 },
-      { matId: 18, qty: 1 },
-      { matId: 19, qty: 0.1 },
-      { matId: 20, qty: 1 },
-      { matId: 21, qty: 4 },
-      { matId: 22, qty: 1 },
-      { matId: 23, qty: 3 },
-      { matId: 24, qty: 5 },
-      { matId: 25, qty: 0.2 },
-      { matId: 26, qty: 1 } // Livraison: 1 course -> 20 MAD
-    ];
-
-    function switchTab(tab) {
-      document.getElementById('tab-calculator').classList.add('hidden');
-      document.getElementById('tab-database').classList.add('hidden');
-      document.getElementById('nav-calculator').className = "flex flex-col items-center text-slate-400 hover:text-slate-600 font-semibold text-xs space-y-1";
-      document.getElementById('nav-database').className = "flex flex-col items-center text-slate-400 hover:text-slate-600 font-semibold text-xs space-y-1";
-
-      if (tab === 'calculator') {
-        document.getElementById('tab-calculator').classList.remove('hidden');
-        document.getElementById('nav-calculator').className = "flex flex-col items-center text-pink-500 font-semibold text-xs space-y-1";
-      } else {
-        document.getElementById('tab-database').classList.remove('hidden');
-        document.getElementById('nav-database').className = "flex flex-col items-center text-pink-500 font-semibold text-xs space-y-1";
-      }
-    }
-
-    function renderMaterials() {
-      const container = document.getElementById('materials-list');
-      container.innerHTML = '';
-      materials.forEach(m => {
-        container.innerHTML += `
-          <div class="p-3 grid grid-cols-12 gap-1 items-center hover:bg-slate-50">
-            <span class="col-span-5 font-semibold text-slate-700">${m.name}</span>
-            <span class="col-span-3 text-center text-slate-500 text-xs">${m.price} MAD / ${m.buyQty} ${m.unit}</span>
-            <span class="col-span-4 text-right font-bold text-slate-800">${m.unitPrice.toFixed(2)} MAD <span class="text-[10px] text-slate-400 font-normal">/${m.unit}</span></span>
-          </div>
-        `;
-      });
-    }
-
-    function renderCakeRecipe() {
-      const container = document.getElementById('cake-ingredients-list');
-      container.innerHTML = '';
-      let totalCost = 0;
-
-      currentRecipe.forEach((item, index) => {
-        const mat = materials.find(m => m.id === item.matId);
-        if (!mat) return;
-        const lineCost = mat.unitPrice * item.qty;
-        totalCost += lineCost;
-
-        container.innerHTML += `
-          <div class="flex justify-between items-center bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-            <div class="flex-1">
-              <h4 class="font-bold text-xs text-slate-700">${mat.name}</h4>
-              <p class="text-[11px] text-slate-400">${item.qty} ${mat.unit} × ${mat.unitPrice.toFixed(2)} MAD</p>
-            </div>
-            <div class="flex items-center space-x-3">
-              <span class="font-bold text-sm text-slate-800">${lineCost.toFixed(2)} MAD</span>
-              <button onclick="removeRecipeItem(${index})" class="text-slate-300 hover:text-red-500 transition">
-                <i class="fa-solid fa-circle-xmark"></i>
-              </button>
-            </div>
-          </div>
-        `;
-      });
-
-      document.getElementById('total-cake-cost').innerText = totalCost.toFixed(2) + ' MAD';
-      document.getElementById('suggested-price-1').innerText = (totalCost * 1.5).toFixed(2) + ' MAD';
-      document.getElementById('suggested-price-2').innerText = (totalCost * 2.0).toFixed(2) + ' MAD';
-    }
-
-    function removeRecipeItem(index) {
-      currentRecipe.splice(index, 1);
-      renderCakeRecipe();
-    }
-
-    function openAddModal() {
-      const select = document.getElementById('modal-mat-select');
-      select.innerHTML = '';
-      materials.forEach(m => {
-        select.innerHTML += `<option value="${m.id}">${m.name} (${m.unitPrice} MAD/${m.unit})</option>`;
-      });
-      document.getElementById('modal-qty-input').value = '';
-      document.getElementById('modal-ingredient').classList.remove('hidden');
-    }
-
-    function closeAddModal() {
-      document.getElementById('modal-ingredient').classList.add('hidden');
-    }
-
-    function saveIngredientToCake() {
-      const matId = parseInt(document.getElementById('modal-mat-select').value);
-      const qty = parseFloat(document.getElementById('modal-qty-input').value);
-
-      if (isNaN(qty) || qty <= 0) {
-        alert("Veuillez saisir une quantité valide !");
-        return;
-      }
-
-      currentRecipe.push({ matId, qty });
-      renderCakeRecipe();
-      closeAddModal();
-    }
-
-    function loadCakePreset() {
-      const val = document.getElementById('cake-select').value;
-      if (val === "MINI CAKE") {
-        currentRecipe = [{ matId: 1, qty: 0.05 }, { matId: 2, qty: 0.05 }, { matId: 3, qty: 2 }, { matId: 20, qty: 0.3 }, { matId: 26, qty: 1 }];
-      } else if (val === "CAKE 4P") {
-        currentRecipe = [{ matId: 1, qty: 0.1 }, { matId: 2, qty: 0.1 }, { matId: 3, qty: 3 }, { matId: 5, qty: 0.2 }, { matId: 26, qty: 1 }];
-      } else {
-        // Default CAKE DESIGN 10/15P
-        currentRecipe = [
-          { matId: 1, qty: 0.17 }, { matId: 2, qty: 0.16 }, { matId: 3, qty: 6 },
-          { matId: 4, qty: 2 }, { matId: 5, qty: 0.5 }, { matId: 6, qty: 4 },
-          { matId: 7, qty: 0.8 }, { matId: 8, qty: 1 }, { matId: 9, qty: 1 },
-          { matId: 10, qty: 1 }, { matId: 11, qty: 1 }, { matId: 12, qty: 1 },
-          { matId: 13, qty: 0.15 }, { matId: 14, qty: 0.15 }, { matId: 15, qty: 0.1 },
-          { matId: 16, qty: 2 }, { matId: 17, qty: 10 }, { matId: 18, qty: 1 },
-          { matId: 19, qty: 0.1 }, { matId: 20, qty: 1 }, { matId: 21, qty: 4 },
-          { matId: 22, qty: 1 }, { matId: 23, qty: 3 }, { matId: 24, qty: 5 },
-          { matId: 25, qty: 0.2 }, { matId: 26, qty: 1 }
-        ];
-      }
-      renderCakeRecipe();
-    }
-
-    // Init App
-    renderMaterials();
-    renderCakeRecipe();
-  </script>
-</body>
-</html>
+<body>
+<div id="login"><div class="card" style="width:100%;max-width:360px;margin:0"><img class="lgb" alt="YOUMI CAKE" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUEBAQEAwUEBAQGBQUGCA0ICAcHCBALDAkNExAUExIQEhIUFx0ZFBYcFhISGiMaHB4fISEhFBkkJyQgJh0gISD/2wBDAQUGBggHCA8ICA8gFRIVICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICD/wAARCADcANwDASIAAhEBAxEB/8QAHAAAAAcBAQAAAAAAAAAAAAAAAAECAwUGBwQI/8QAURAAAQMDAgQDBAUIBgYGCwAAAQIDBAAFEQYhBxIxQRNRYRQicYEVMpGhsQgjQlJicoLBFjOywtHwFyRDU6LSZHSEkpTxJURFVGODk7PD0+H/xAAaAQACAwEBAAAAAAAAAAAAAAABAgADBAUG/8QAOBEAAQMCAwQJAwIFBQAAAAAAAQACAwQREiExQVFhcQUTIjKBkaHB8LHR4RQjM0JSYoIkQ3LC8f/aAAwDAQACEQMRAD8A9R52o80VCs66yFChQqKI80KKhUUR5oqFJJqIpWaLNJz5VX75rPTOnAReLzHjOdmQrmcP8I3oJ2Rue7C0XKsXNQ5qxS48fITj6oultL3G9Pp2B5eVP2AEj51Cr1vx1vqsWuxWuyNHop0eIsfLKj/w0HODe9kt56Onb/EGHmc/LVehOajz6V54Om+O90TzTdfOx+b9CKwEgfcimf8ARTxMeVzyNf3ZajvnxMf/AJKTrB8uoKNn80gXo3JoZwc154Tw44pQ0/6tr65D99KVj+3T7bHG+z7tXyPcEp6iSypJP2DH30Q8HarR0ex3dlb6r0BmjBrDWOKmvLQMak0WuQ0nq9BPP8yBnHzxVt0/xg0dfVpYVN9gknbwpI5Dny32++rBnmEj+i6loxNbiG9pv9FotGKZYfZkNhxl1LiCMhSTmnhQXNItkUdFQxQ2opUDRUeaG1RBAUN6FFUUR4oXZXOKgB5oUVHUWqIoaCiKFAaKKCgoaFFQoChRQ2qIoUKCihQUKCiooUKCihRQ2qKKhRVH4os0eKFAoUKGKOihQtBRR0KFAUVCiooUFFQooUCiqoUFFQooUGKiijQoUFHChRUUVCiooUFFRUoUGioqKKhQUcKiilQoUUUKChUVCigoqCihQtBRQUVKFChRUoUFFHChQFCihwoUKCihRQooUKFCgoUUKFCiihQoUKCioUKFCiiihQooUKKKKFCiihR//9k="><h2 style="font-size:20px;text-align:center">Youmi Cake Manager</h2><small style="text-align:center">Connexion</small><label>Nom d’utilisateur</label><input id="lu" autocapitalize="off" autocomplete="username"><label>Mot de passe</label><input id="lp" type="password" autocomplete="current-password"><div class="err" id="lerr"></div><button class="pri" id="lgo" style="width:100%">Se connecter</button></div></div>
+<header><div class="w"><h1 class="brand"><img class="lg" alt="YOUMI CAKE" src="data:image/jpeg;base64,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
