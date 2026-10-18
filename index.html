@@ -279,6 +279,7 @@ function boot(){
  let u=null;try{u=localStorage.getItem("cakecost.user")}catch(e){}
  loadData();renderCalc();renderMats();renderClients();
  if(u&&USERS[u])enter(u);else setSync();
+ <link rel="manifest" href="manifest.json">
 }
 boot();
 </script>
