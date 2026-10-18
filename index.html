@@ -46,203 +46,241 @@ nav button.on{color:var(--br)}nav i{display:block;font-style:normal;font-size:20
 #dlg{position:fixed;inset:0;background:#0008;z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
 #dlg>div{background:var(--card);border-radius:18px;padding:18px;width:100%;max-width:380px;max-height:90%;overflow:auto}
 #dlg h3{margin:0 0 4px;font-size:17px}.dact{display:flex;gap:8px;margin-top:16px}.dact button{flex:1}
-#login{position:fixed;inset:0;background:var(--bg);z-index:30;display:flex;align-items:center;justify-content:center;padding:20px}
-.brand{display:flex;align-items:center}
-.logo-placeholder{width:80px;height:80px;border-radius:50%;background:var(--head);color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px;font-weight:bold}
-.dng{background:none;color:#ef4444;margin-top:8px;width:100%}
+.tag{font-size:11px;font-weight:700;background:var(--soft);color:var(--br);padding:3px 8px;border-radius:99px;white-space:nowrap}.oh,.orow{display:flex;gap:8px;font-size:12.5px;padding:8px 2px;align-items:center}.oh{color:var(--mut);margin-top:10px;font-size:11px;text-transform:uppercase;font-weight:700}.oh span+span,.oh b+b,.orow span+span{width:70px;text-align:right}.orow{width:100%;background:none;color:var(--tx);border-radius:0;font-weight:400;text-align:left;border-top:1px solid var(--bd)}.row select{flex:1}.ord{display:block;width:100%;text-align:left;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:16px;padding:14px;margin-bottom:12px;font-weight:400}.kv{display:flex;justify-content:space-between;font-size:13.5px;margin-top:5px}.kv.t{border-top:1px solid var(--bd);padding-top:8px;margin-top:8px;font-size:15px}.kv.t b{color:var(--br)}#login{position:fixed;inset:0;background:var(--bg);z-index:30;display:flex;align-items:center;justify-content:center;padding:20px}.err{color:#ef4444;font-size:13px;min-height:20px;margin-top:8px}.brand{display:flex;align-items:center}.lg{width:40px;height:40px;border-radius:50%;margin-right:10px;border:2px solid #fff8}.lgb{display:block;width:130px;height:130px;border-radius:50%;margin:0 auto 10px}.r2{margin-top:14px;text-align:right}.dng{background:none;color:#ef4444;margin-top:8px;width:100%}
 </style>
 </head>
 <body>
-
-<div id="login">
-  <div class="card" style="width:100%;max-width:360px;margin:0;text-align:center">
-    <div class="logo-placeholder">🎂</div>
-    <h2 style="font-size:20px;text-align:center;margin-bottom:4px">Youmi Cake Manager</h2>
-    <small style="text-align:center;display:block;margin-bottom:14px">Connexion</small>
-    <div style="text-align:left">
-      <label>Nom d’utilisateur</label>
-      <input id="lu" value="imad" autocapitalize="off" autocomplete="username">
-      <label>Mot de passe</label>
-      <input id="lp" type="password" value="123456" autocomplete="current-password">
-    </div>
-    <button class="pri" id="lgo" style="width:100%;margin-top:16px">Se connecter</button>
-  </div>
-</div>
-
-<header>
-  <div class="w">
-    <h1 class="brand">🎂 Youmi Cake Manager</h1>
-    <span class="pill">MAD (DH)</span>
-  </div>
-</header>
-
+<div id="login"><div class="card" style="width:100%;max-width:360px;margin:0"><img class="lgb" alt="YOUMI CAKE" src="data:image/jpeg;base64,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"><h2 style="font-size:20px;text-align:center">Youmi Cake Manager</h2><small style="text-align:center">Connexion</small><label>Nom d’utilisateur</label><input id="lu" autocapitalize="off" autocomplete="username"><label>Mot de passe</label><input id="lp" type="password" autocomplete="current-password"><div class="err" id="lerr"></div><button class="pri" id="lgo" style="width:100%">Se connecter</button></div></div>
+<header><div class="w"><h1 class="brand"><img class="lg" alt="YOUMI CAKE" src="data:image/jpeg;base64,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">Youmi Cake Manager</h1><span class="pill">MAD (DH)</span></div></header>
 <main class="w" id="app">
-  <div class="row" style="margin-bottom:10px">
-    <small id="sync" class="grow"></small>
-    <button class="sm" id="bout">Déconnexion</button>
+<div class="row" style="margin-bottom:10px"><small id="sync" class="grow"></small><button class="sm" id="bres">📂 Restaurer</button><input type="file" id="fres" accept=".xlsx,.json" hidden><button class="sm bsave">💾 Sauvegarder</button><button class="sm" id="bout">Déconnexion</button></div>
+<section id="t1">
+ <div class="card">
+  <label style="margin-top:0">Gâteau / projet</label>
+  <select id="sel"></select>
+  <div class="tools"><button class="sm" id="bnew">＋ Nouveau</button><button class="sm" id="bdup">Dupliquer</button><button class="sm" id="bren">Renommer</button><button class="sm" id="bdel">Supprimer</button></div>
+ </div>
+ <div class="card">
+  <div class="row"><h2 class="grow">🧺 Ingrédients utilisés</h2><button class="sm" id="badd">+ Ajouter</button></div>
+  <div id="items"></div>
+ </div>
+ <div class="tot">
+  <div class="r" style="margin:0"><span>Matières premières</span><b id="tmat"></b></div>
+  <div class="g2" style="margin-top:10px">
+   <div><small>Autres frais (MAD)</small><input id="extra" type="number" inputmode="decimal" min="0" step="any"></div>
+   <div><small>Marge (%)</small><input id="margin" type="number" inputmode="decimal" min="0" step="any"></div>
   </div>
-
-  <section id="t1">
-    <div class="card">
-      <label style="margin-top:0">Gâteau / projet</label>
-      <select id="sel"></select>
-    </div>
-
-    <div class="card">
-      <div class="row"><h2 class="grow">🧺 Ingrédients utilisés</h2><button class="sm" id="badd">+ Ajouter</button></div>
-      <div id="items"></div>
-    </div>
-
-    <div class="tot">
-      <div class="r" style="margin:0"><span>Matières premières</span><b id="tmat">0.00 MAD</b></div>
-      <div class="g2" style="margin-top:10px">
-        <div><small>Autres frais (MAD)</small><input id="extra" type="number" inputmode="decimal" min="0" step="any" value="0"></div>
-        <div><small>Marge (%)</small><input id="margin" type="number" inputmode="decimal" min="0" step="any" value="50"></div>
-      </div>
-      <hr>
-      <div class="r" style="margin:0;align-items:center"><span>Coût de revient</span><span class="big" id="tcost">0.00 MAD</span></div>
-      <div class="r"><span>Prix de vente conseillé</span><b id="tprice" style="color:var(--ok);font-size:17px">0.00 MAD</b></div>
-      <div class="r"><small>Bénéfice</small><small id="tprofit">0.00 MAD</small></div>
-    </div>
-  </section>
-
-  <section id="t2" hidden>
-    <div class="card row"><div class="grow"><h2>Matières premières</h2></div><button class="pri sm" id="bmat">+ Nouvelle</button></div>
-    <div class="card" style="padding:0;overflow:hidden" id="mats"></div>
-  </section>
+  <hr>
+  <div class="r" style="margin:0;align-items:center"><span>Coût de revient</span><span class="big" id="tcost"></span></div>
+  <div class="r"><span>Prix de vente conseillé</span><b id="tprice" style="color:var(--ok);font-size:17px"></b></div>
+  <div class="r"><small>Bénéfice</small><small id="tprofit"></small></div>
+ </div>
+<div class="card">
+  <h2>📋 Ajouter la commande au client</h2>
+  <label>Client</label>
+  <div class="row"><select id="csel"></select><button class="sm" id="bcli2">＋ Nouveau</button></div>
+  <div class="g2"><div><label>Prix de vente (MAD)</label><input id="bill" type="number" inputmode="decimal" min="0" step="any"></div><div><label>Remise (MAD)</label><input id="rem" type="number" inputmode="decimal" min="0" step="any" placeholder="0"></div></div>
+  <button class="pri" id="bord" style="width:100%;margin-top:14px">Ajouter la commande</button>
+  <button class="bsave" style="width:100%;margin-top:8px">💾 Sauvegarder toute la base</button>
+ </div>
+</section>
+<section id="t2" hidden>
+ <div class="card row"><div class="grow"><h2>Matières premières</h2><small>Touchez une ligne pour modifier le prix</small></div><button class="pri sm" id="bmat">+ Nouvelle</button></div>
+ <div class="card" style="padding:0;overflow:hidden" id="mats"></div>
+</section>
+<section id="t3" hidden>
+ <div class="card row" id="chead"><div class="grow"><h2>Clients</h2><small id="cinfo"></small></div><button class="sm bsave">💾 Sauvegarder</button><button class="pri sm" id="bcli">+ Nouveau client</button></div>
+ <div id="clients"></div>
+</section>
 </main>
-
-<nav id="nav">
-  <div class="w">
-    <button id="n1" class="on"><i>🧮</i>Calculateur</button>
-    <button id="n2"><i>📦</i>Matières</button>
-  </div>
-</nav>
-
-<div id="dlg" hidden>
-  <div>
-    <h3 id="dt"></h3>
-    <div id="db"></div>
-    <div class="dact"><button id="dno">Annuler</button><button class="pri" id="dok">OK</button></div>
-  </div>
-</div>
-
+<nav id="nav"><div class="w"><button id="n1" class="on"><i>🧮</i>Calculateur</button><button id="n2"><i>📦</i>Matières</button><button id="n3"><i>👥</i>Clients</button></div></nav>
+<div id="dlg" hidden><div><h3 id="dt"></h3><div id="db"></div><button class="dng" id="dx" hidden></button><div class="dact"><button id="dno">Annuler</button><button class="pri" id="dok">OK</button></div></div></div>
 <script>
-const U = { g: [1, "g"], kg: [1000, "g"], ml: [1, "ml"], L: [1000, "ml"], pc: [1, "pièce"] };
-const UL = { kg: "kg", g: "g", L: "L", ml: "ml", pc: "pièce" };
-
-let S = {
-  materials: [
-    { id: 1, name: "Farine", price: 10, unit: "kg" },
-    { id: 2, name: "Sucre", price: 10, unit: "kg" },
-    { id: 3, name: "Œufs", price: 1.39, unit: "pc" },
-    { id: 4, name: "Pâte à sucre", price: 60, unit: "kg" },
-    { id: 26, name: "Livraison", price: 20, unit: "pc" }
-  ],
-  recipes: [
-    {
-      id: 1,
-      name: "Cake Design 10/15P",
-      margin: 50,
-      extra: 0,
-      items: [
-        { m: 1, q: 0.5 },
-        { m: 2, q: 0.5 },
-        { m: 3, q: 6 },
-        { m: 26, q: 1 }
-      ]
-    }
-  ],
-  cur: 1
-};
-
-const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const f = n => (n || 0).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const mat = id => S.materials.find(m => m.id === id);
-const rec = () => S.recipes.find(r => r.id === S.cur) || S.recipes[0];
-
-function calc(r) {
-  let t = 0;
-  if (r && r.items) {
-    r.items.forEach(i => {
-      const m = mat(i.m);
-      if (m) {
-        const unitFactor = U[m.unit] ? U[m.unit][0] : 1;
-        t += (m.price / unitFactor) * i.q;
-      }
-    });
-  }
-  return t;
+const U={g:[1,"g"],kg:[1000,"g"],ml:[1,"ml"],L:[1000,"ml"],pc:[1,"pièce"]};
+const UN={kg:"Kilo (kg)",g:"Gramme (g)",L:"Litre (L)",ml:"Millilitre (ml)",pc:"Pièce"};const UL={kg:"kg",g:"g",L:"L",ml:"ml",pc:"pièce"};
+let S={materials:[],recipes:[],clients:[],cur:0};try{S.cur=+localStorage.getItem("cakecost.cur")||0}catch(e){}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const f=n=>n.toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const lp=(m,p)=>(p!=null?p:m.price)/U[m.unit][0];
+const bu=m=>U[m.unit][1];
+const mat=id=>S.materials.find(m=>m.id===id);
+const rec=()=>S.recipes.find(r=>r.id===S.cur)||S.recipes[0];
+function calc(r){let t=0;r.items.forEach(i=>{const m=mat(i.m);if(m)t+=lp(m,i.p)*i.q});return t}
+function totals(){const r=rec(),c=calc(r),cost=c+(+r.extra||0),p=cost*(1+(+r.margin||0)/100);
+ $("tmat").textContent=f(c)+" MAD";$("tcost").textContent=f(cost)+" MAD";$("tprice").textContent=f(p)+" MAD";$("tprofit").textContent=f(p-cost)+" MAD";$("bill").placeholder=p.toFixed(2)}
+function renderCalc(){
+ const r=rec();
+ $("sel").innerHTML=S.recipes.map(x=>`<option value="${x.id}"${x.id===r.id?" selected":""}>${esc(x.name)}</option>`).join("");
+ $("items").innerHTML=r.items.length?r.items.map((i,k)=>{const m=mat(i.m);if(!m)return"";
+  return `<div class="line"><div class="grow"><b>${esc(m.name)}</b><small>${f(lp(m,i.p)*U[m.unit][0])} MAD / ${UL[m.unit]}</small></div><input class="q" type="number" inputmode="decimal" min="0" step="any" value="${i.q}" data-k="${k}"><span class="u">${bu(m)}</span><b class="lc" id="lc${k}">${f(lp(m,i.p)*i.q)}</b><button class="x" data-del="${k}" aria-label="Retirer">×</button></div>`}).join(""):`<p class="empty">Aucun ingrédient. Appuyez sur « Ajouter ».</p>`;
+ $("margin").value=r.margin;$("extra").value=r.extra;totals();fillCsel();
 }
-
-function totals() {
-  const r = rec(); if (!r) return;
-  const c = calc(r);
-  const extra = +($("extra").value) || 0;
-  const margin = +($("margin").value) || 0;
-  const cost = c + extra;
-  const price = cost * (1 + margin / 100);
-
-  $("tmat").textContent = f(c) + " MAD";
-  $("tcost").textContent = f(cost) + " MAD";
-  $("tprice").textContent = f(price) + " MAD";
-  $("tprofit").textContent = f(price - cost) + " MAD";
+function renderMats(){
+ $("mats").innerHTML=S.materials.map(m=>`<button class="mrow" data-m="${m.id}"><span class="grow"><b>${esc(m.name)}</b></span><span>${f(m.price)} MAD<small>/ ${UL[m.unit]}</small></span></button>`).join("")||`<p class="empty">Aucune matière.</p>`;
 }
-
-function renderCalc() {
-  const r = rec(); if (!r) return;
-  $("sel").innerHTML = S.recipes.map(x => `<option value="${x.id}"${x.id === r.id ? " selected" : ""}>${esc(x.name)}</option>`).join("");
-  
-  $("items").innerHTML = r.items.length ? r.items.map((i, k) => {
-    const m = mat(i.m); if (!m) return "";
-    const unitLabel = UL[m.unit] || m.unit;
-    const unitFactor = U[m.unit] ? U[m.unit][0] : 1;
-    const itemCost = (m.price / unitFactor) * i.q;
-    return `<div class="line"><div class="grow"><b>${esc(m.name)}</b><small>${f(m.price)} MAD / ${unitLabel}</small></div><input class="q" type="number" step="any" value="${i.q}" data-k="${k}"><span class="u">${unitLabel}</span><b class="lc">${f(itemCost)} MAD</b><button class="x" onclick="removeItem(${k})">×</button></div>`;
-  }).join("") : `<p class="empty">Aucun ingrédient.</p>`;
-
-  totals();
+let okFn=null;
+function dlg(title,body,ok,extra){$("dt").textContent=title;$("db").innerHTML=body;okFn=ok;const e=$("dx");e.hidden=!extra;if(extra){e.textContent=extra.label;e.onclick=()=>{extra.fn();close()}}$("dlg").hidden=false;const i=$("db").querySelector("input,select");if(i)i.focus()}
+function close(){$("dlg").hidden=true}
+$("dok").onclick=()=>{if(okFn&&okFn()===false)return;close()};$("dno").onclick=close;
+function nameDlg(title,val,fn){dlg(title,`<label>Nom</label><input id="f1" value="${esc(val)}">`,()=>{const n=$("f1").value.trim();if(!n)return false;fn(n);save();renderCalc()})}
+$("bnew").onclick=()=>nameDlg("Nouveau gâteau","",n=>{const r={id:uid(),name:n,items:[],margin:100,extra:0};S.recipes.push(r);S.cur=r.id});
+$("bdup").onclick=()=>nameDlg("Dupliquer",rec().name+" (copie)",n=>{const o=rec(),r=JSON.parse(JSON.stringify(o));r.id=uid();r.name=n;S.recipes.push(r);S.cur=r.id});
+$("bren").onclick=()=>nameDlg("Renommer",rec().name,n=>{rec().name=n});
+$("bdel").onclick=()=>dlg("Supprimer ce gâteau ?",`<p>« ${esc(rec().name)} » sera supprimé.</p>`,()=>{S.recipes=S.recipes.filter(r=>r.id!==S.cur);if(!S.recipes.length)S.recipes.push({id:uid(),name:"Nouveau gâteau",items:[],margin:100,extra:0});S.cur=S.recipes[0].id;save();renderCalc()});
+$("sel").onchange=e=>{S.cur=+e.target.value;save();renderCalc()};
+$("margin").oninput=e=>{rec().margin=parseFloat(e.target.value)||0;save();totals()};
+$("extra").oninput=e=>{rec().extra=parseFloat(e.target.value)||0;save();totals()};
+$("items").addEventListener("input",e=>{const k=e.target.dataset.k;if(k==null)return;const it=rec().items[k];it.q=parseFloat(e.target.value)||0;$("lc"+k).textContent=f(lp(mat(it.m),it.p)*it.q);save();totals()});
+$("items").addEventListener("click",e=>{const k=e.target.dataset.del;if(k==null)return;rec().items.splice(k,1);save();renderCalc()});
+$("badd").onclick=()=>{
+ const ms=S.materials;if(!ms.length){dlg("Ajouter","<p>Ajoutez d’abord des matières dans l’onglet « Matières ».</p>",null);return}
+ dlg("Ajouter un ingrédient",`<label>Matière première</label><select id="f1">${ms.map(m=>`<option value="${m.id}">${esc(m.name)}</option>`).join("")}</select><label id="fl1"></label><input id="f3" type="number" inputmode="decimal" min="0" step="any"><label id="fl2"></label><div class="row"><button class="sm" id="fm" type="button">−</button><input id="f2" type="number" inputmode="decimal" min="0" step="any" placeholder="0"><button class="sm" id="fp" type="button">+</button></div><div class="r2">Coût de cette ligne : <b id="fc">0,00 MAD</b></div>`,()=>{
+  const m=mat(+$("f1").value),q=parseFloat($("f2").value),p=parseFloat($("f3").value);
+  if(!(q>0)||isNaN(p))return false;
+  rec().items.push({m:m.id,q,p:p!==m.price?p:null});save();renderCalc()});
+ const g=()=>mat(+$("f1").value);
+ const c=()=>{const p=parseFloat($("f3").value),q=parseFloat($("f2").value)||0;$("fc").textContent=f(isNaN(p)?0:lp(g(),p)*q)+" MAD"};
+ const u=()=>{const m=g(),pc=m.unit==="pc";$("f3").value=m.price;$("fl1").textContent="Prix de la matière (MAD / "+UL[m.unit]+")";$("fl2").textContent=pc?"Nombre de pièces":"Quantité utilisée ("+bu(m)+")";$("fm").hidden=$("fp").hidden=!pc;$("f2").step=pc?"1":"any";$("f2").value=pc?1:"";c()};
+ $("f1").onchange=u;$("f3").oninput=c;$("f2").oninput=c;
+ $("fm").onclick=()=>{$("f2").value=Math.max(0,(parseFloat($("f2").value)||0)-1);c()};
+ $("fp").onclick=()=>{$("f2").value=(parseFloat($("f2").value)||0)+1;c()};
+ u();
+};
+function matDlg(m){
+ const n=!m;m=m||{name:"",price:"",unit:"kg"};
+ dlg(n?"Nouvelle matière":"Modifier la matière",`<label>Nom</label><input id="f1" value="${esc(m.name)}"><label>Unité</label><select id="f4">${Object.keys(UN).map(k=>`<option value="${k}"${k===m.unit?" selected":""}>${UN[k]}</option>`).join("")}</select><label>Prix (MAD) par unité choisie</label><input id="f2" type="number" inputmode="decimal" min="0" step="any" value="${m.price}"><small style="margin-top:8px">Ex. : unité kilo → prix d’1 kg. Dans les recettes, les kilos se saisissent en g et les litres en ml.</small>`,()=>{
+  const name=$("f1").value.trim(),price=parseFloat($("f2").value);
+  if(!name||!(price>=0))return false;
+  const v={name,price,unit:$("f4").value};
+  if(n)S.materials.push({id:uid(),...v});else Object.assign(m,v);
+  save();renderMats();renderCalc();
+ },n?null:{label:"Supprimer cette matière",fn:()=>{S.materials=S.materials.filter(x=>x.id!==m.id);S.recipes.forEach(r=>r.items=r.items.filter(i=>i.m!==m.id));save();renderMats();renderCalc()}});
 }
-
-function renderMats() {
-  $("mats").innerHTML = S.materials.map(m => `<div class="mrow"><span class="grow"><b>${esc(m.name)}</b></span><span>${f(m.price)} MAD / ${UL[m.unit] || m.unit}</span></div>`).join("");
+$("bmat").onclick=()=>matDlg();
+$("mats").addEventListener("click",e=>{const b=e.target.closest("[data-m]");if(b)matDlg(mat(+b.dataset.m))});
+function tab(n){[1,2,3].forEach(i=>{$("t"+i).hidden=n!==i;$("n"+i).className=n===i?"on":""});window.scrollTo(0,0)}
+$("n1").onclick=()=>tab(1);$("n2").onclick=()=>tab(2);$("n3").onclick=()=>{curCl=null;renderClients();tab(3)};
+const sum=(a,k)=>a.reduce((t,o)=>t+o[k],0);
+const dfr=d=>new Date(d).toLocaleDateString("fr-FR");
+function fillCsel(sel){
+ const v=sel||$("csel").value;
+ $("csel").innerHTML=S.clients.length?S.clients.map(c=>`<option value="${c.id}">${esc(c.name)}${c.phone?" · "+esc(c.phone):""}</option>`).join(""):`<option value="">Aucun client : créez-en un</option>`;
+ if(v&&S.clients.some(c=>c.id===+v))$("csel").value=v;
 }
-
-function removeItem(k) {
-  const r = rec();
-  r.items.splice(k, 1);
-  renderCalc();
+let curCl=null;
+function renderClients(){
+ const c=S.clients.find(x=>x.id===curCl);if(!c)curCl=null;
+ $("chead").hidden=!!c;
+ $("cinfo").textContent=S.clients.length+" client(s)";
+ const el=$("clients");
+ if(!c){el.innerHTML=S.clients.length?`<div class="card" style="padding:0;overflow:hidden">${S.clients.map(x=>`<button class="mrow" data-open="${x.id}"><span class="grow"><b>${esc(x.name)}</b><small>${x.type==="rs"?"Réseaux sociaux":"Particulier"} · ${x.orders.length} commande(s)</small></span><span>›</span></button>`).join("")}</div>`:'<p class="empty">Aucun client. Appuyez sur « Nouveau client ».</p>';return}
+ const cost=sum(c.orders,"cost"),pv=sum(c.orders,"price"),re=sum(c.orders,"remise"),net=pv-re;
+ el.innerHTML=`<div class="row" style="margin-bottom:10px"><button class="sm" data-back="1">← Clients</button><span class="grow"></span><button class="sm" data-c="${c.id}">Modifier le client</button></div>
+ <div class="card"><div class="row"><h2 class="grow">${esc(c.name)}</h2><span class="tag">${c.type==="rs"?"Réseaux sociaux":"Particulier"}</span></div><small style="margin-top:6px">📞 ${esc(c.phone)||"—"}</small><small>📍 ${esc(c.address)||"—"}</small></div>
+ ${c.orders.map(o=>`<button class="ord" data-o="${o.id}"><div class="row"><b class="grow">${esc(o.cake)}</b><small>${dfr(o.d)}${o.by?" · "+esc(o.by):""}</small></div><div class="kv"><span>Coût de revient</span><b>${f(o.cost)} MAD</b></div><div class="kv"><span>Prix de vente</span><b>${f(o.price)} MAD</b></div><div class="kv"><span>Remise</span><b>− ${f(o.remise)} MAD</b></div><div class="kv t"><span>Total à facturer</span><b>${f(o.price-o.remise)} MAD</b></div><div class="kv"><small>Bénéfice</small><small>${f(o.price-o.remise-o.cost)} MAD</small></div></button>`).join("")||'<p class="empty">Aucune commande. Ajoutez-en depuis le Calculateur.</p>'}
+ <div class="tot"><b>Récapitulatif (${c.orders.length} commande${c.orders.length>1?"s":""})</b><div class="r"><span>Coût de revient</span><b>${f(cost)} MAD</b></div><div class="r"><span>Prix de vente</span><b>${f(pv)} MAD</b></div><div class="r"><span>Remise</span><b>− ${f(re)} MAD</b></div><hr><div class="r" style="margin:0;align-items:center"><span>Total à facturer</span><span class="big">${f(net)} MAD</span></div><div class="r"><small>Bénéfice</small><small>${f(net-cost)} MAD</small></div></div>`;
 }
-
-// Actions de connexion & navigation
-$("lgo").onclick = () => {
-  $("login").style.display = "none";
+function clientDlg(c){
+ const n=!c;c=c||{name:"",phone:"",address:"",type:"part"};
+ dlg(n?"Nouveau client":"Modifier le client",`<label>Nom du client</label><input id="f1" value="${esc(c.name)}"><label>Téléphone</label><input id="f2" type="tel" inputmode="tel" value="${esc(c.phone)}"><label>Adresse</label><input id="f3" value="${esc(c.address)}"><label>Type de client</label><select id="f4"><option value="rs"${c.type==="rs"?" selected":""}>Réseaux sociaux</option><option value="part"${c.type!=="rs"?" selected":""}>Particulier</option></select>${n?"":'<small style="margin-top:8px">Supprimer ce client efface aussi ses commandes.</small>'}`,()=>{
+  const name=$("f1").value.trim();if(!name)return false;
+  const v={name,phone:$("f2").value.trim(),address:$("f3").value.trim(),type:$("f4").value};
+  if(n){c={id:uid(),orders:[],...v};S.clients.push(c)}else Object.assign(c,v);
+  save();renderClients();fillCsel(c.id)},
+  n?null:{label:"Supprimer ce client",fn:()=>{S.clients=S.clients.filter(x=>x.id!==c.id);save();renderClients();fillCsel()}});
+}
+function ordDlg(cl,o){
+ dlg("Modifier la commande",`<small>${esc(o.cake)} · ${dfr(o.d)}</small><label>Coût de revient (MAD)</label><input id="f3" type="number" inputmode="decimal" min="0" step="any" value="${o.cost}"><label>Prix de vente (MAD)</label><input id="f1" type="number" inputmode="decimal" min="0" step="any" value="${o.price}"><label>Remise (MAD)</label><input id="f2" type="number" inputmode="decimal" min="0" step="any" value="${o.remise}">`,()=>{
+  const p=parseFloat($("f1").value);if(isNaN(p))return false;
+  o.price=p;o.remise=parseFloat($("f2").value)||0;o.cost=parseFloat($("f3").value)||0;save();renderClients()},
+  {label:"Supprimer la commande",fn:()=>{cl.orders=cl.orders.filter(x=>x.id!==o.id);save();renderClients()}});
+}
+$("bcli").onclick=()=>clientDlg();$("bcli2").onclick=()=>clientDlg();
+$("clients").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
+ if(d.open){curCl=+d.open;renderClients();window.scrollTo(0,0)}
+ else if(d.back){curCl=null;renderClients()}
+ else if(d.o){const c=S.clients.find(x=>x.id===curCl);ordDlg(c,c.orders.find(o=>o.id===+d.o))}
+ else if(d.c)clientDlg(S.clients.find(x=>x.id===+d.c))});
+$("bord").onclick=()=>{
+ const cl=S.clients.find(c=>c.id===+$("csel").value);
+ if(!cl){clientDlg();return}
+ const r=rec(),cost=calc(r)+(+r.extra||0),def=cost*(1+(+r.margin||0)/100);
+ let p=parseFloat($("bill").value);if(isNaN(p))p=+def.toFixed(2);
+ cl.orders.push({id:uid(),d:new Date().toISOString().slice(0,10),cake:r.name,cost:+cost.toFixed(2),price:p,remise:parseFloat($("rem").value)||0,by:ME});
+ rec().items=[];rec().extra=0;save();$("bill").value="";$("rem").value="";renderClients();renderCalc();
+ const b=$("bord");b.textContent="✓ Ajoutée à "+cl.name;setTimeout(()=>b.textContent="Ajouter la commande",2500);
 };
-
-$("bout").onclick = () => {
-  $("login").style.display = "flex";
+const KEY="youmi.cake.v1",USERS={imad:"youmi2026",maryam:"youmi2026"};
+const SEED={"materials":[{"id":1,"name":"Farine","price":10,"unit":"kg"},{"id":2,"name":"Sucre","price":10,"unit":"kg"},{"id":3,"name":"Œufs","price":1.39,"unit":"pc"},{"id":4,"name":"crème fraiche","price":34,"unit":"L"},{"id":5,"name":"Gélatine","price":1.5,"unit":"pc"},{"id":6,"name":"Colorant","price":5,"unit":"pc"},{"id":7,"name":"Feuilletine","price":10,"unit":"g"},{"id":8,"name":"Crème bueno","price":20,"unit":"g"},{"id":9,"name":"Crème pistache","price":18,"unit":"g"},{"id":10,"name":"Pistache","price":10,"unit":"kg"},{"id":11,"name":"noisette","price":10,"unit":"g"},{"id":12,"name":"Noix","price":10,"unit":"kg"},{"id":13,"name":"Chocolat riche NOIR","price":35,"unit":"kg"},{"id":14,"name":"Chocolat riche BLANC","price":35,"unit":"kg"},{"id":15,"name":"Chocolat riche AU LAIT","price":35,"unit":"kg"},{"id":16,"name":"Chocolat Normal","price":4,"unit":"g"},{"id":17,"name":"Poudre chocolat noir","price":10,"unit":"g"},{"id":18,"name":"les boules","price":5,"unit":"pc"},{"id":19,"name":"topper","price":6,"unit":"pc"},{"id":20,"name":"Pâte à sucre","price":60,"unit":"kg"},{"id":21,"name":"Boîte à gâteau petite","price":2,"unit":"pc"},{"id":22,"name":"Boîte à gâteau normal","price":2,"unit":"pc"},{"id":23,"name":"Box cake grand","price":30,"unit":"pc"},{"id":24,"name":"Beurre","price":10,"unit":"g"},{"id":25,"name":"Bougie","price":12,"unit":"pc"},{"id":26,"name":"Papier couisson","price":5,"unit":"pc"},{"id":27,"name":"Papier waffer","price":4,"unit":"pc"},{"id":28,"name":"Fleur normal","price":5,"unit":"pc"},{"id":29,"name":"Fleur artificiel","price":15,"unit":"pc"},{"id":30,"name":"happy birthday","price":8,"unit":"pc"},{"id":31,"name":"Livraison","price":20,"unit":"pc"}],"recipes":[{"extra":0,"id":100,"items":[{"m":1,"q":50},{"m":2,"q":50},{"m":3,"q":2},{"m":31,"q":1}],"margin":100,"name":"MINI CAKE"},{"extra":0,"id":101,"items":[{"m":1,"q":100},{"m":2,"q":100},{"m":3,"q":3},{"m":4,"q":200},{"m":31,"q":1}],"margin":100,"name":"CAKE 4P"},{"extra":0,"id":102,"items":[{"m":31,"q":1}],"margin":100,"name":"CAKEDESIGN 4P"},{"extra":0,"id":103,"items":[{"m":31,"q":1}],"margin":100,"name":"CAKEDESIGN 8P"},{"extra":0,"id":104,"items":[{"m":1,"q":170},{"m":2,"q":160},{"m":3,"q":6},{"m":4,"q":500},{"m":5,"q":4},{"m":7,"q":0.8},{"m":8,"q":1},{"m":9,"q":1},{"m":10,"q":1000},{"m":11,"q":1},{"m":12,"q":1000},{"m":13,"q":150},{"m":14,"q":150},{"m":16,"q":0.1},{"m":17,"q":0.4},{"m":18,"q":10},{"m":19,"q":1},{"m":20,"q":100},{"m":23,"q":1},{"m":25,"q":4},{"m":26,"q":1},{"m":27,"q":3},{"m":28,"q":5},{"m":29,"q":1},{"m":31,"q":1}],"margin":100,"name":"CAKE DESIGN 10/15P"}],"clients":[{"address":"","id":1792325172662603,"name":"lamzal","orders":[],"phone":"","type":"part"}],"cur":104,"v":2};
+let ME=null;
+const cap=u=>u?u[0].toUpperCase()+u.slice(1):"";
+function uid(){return Date.now()*1000+Math.floor(Math.random()*1000)}
+function setSync(t){$("sync").textContent=(ME?"👤 "+cap(ME)+" · ":"")+(t||"💾 Données enregistrées sur cet appareil")}
+function save(){
+ try{localStorage.setItem(KEY,JSON.stringify({v:2,materials:S.materials,recipes:S.recipes,clients:S.clients,cur:S.cur}))}
+ catch(e){setSync("⚠️ Enregistrement impossible sur cet appareil")}
+}
+function loadData(){
+ let d=null;
+ try{const r=localStorage.getItem(KEY);if(r)d=JSON.parse(r)}catch(e){}
+ if(!d){try{const r=localStorage.getItem("cakecost.v2");if(r){d=JSON.parse(r);d.clients=d.clients||[];SEED.clients.forEach(c=>{if(!d.clients.some(x=>x.id===c.id))d.clients.push(c)})}}catch(e){}}
+ if(!d||!d.materials||!d.recipes)d=JSON.parse(JSON.stringify(SEED));
+ let mg=false;
+ if((d.v||0)<2){
+  mg=true;let l=d.materials.find(x=>String(x.name).toLowerCase()==="livraison");
+  if(!l){l={id:31,name:"Livraison",price:20,unit:"pc"};if(d.materials.some(x=>x.id===31))l.id=uid();d.materials.push(l)}
+  d.recipes.forEach(r=>{if(!r.items.some(i=>i.m===l.id))r.items.push({m:l.id,q:1})});
+ }
+ S.materials=d.materials;S.recipes=d.recipes;S.clients=d.clients||[];S.cur=d.cur||0;
+ if(!S.recipes.length)S.recipes.push({id:uid(),name:"Nouveau gâteau",items:[],margin:100,extra:0});
+ if(!S.recipes.some(r=>r.id===S.cur))S.cur=S.recipes[S.recipes.length-1].id;
+ if(mg)save();
+}
+function enter(u){ME=u;try{localStorage.setItem("cakecost.user",u)}catch(e){}$("login").hidden=true;$("lp").value="";$("lerr").textContent="";setSync()}
+function tryLogin(){const u=$("lu").value.trim().toLowerCase(),p=$("lp").value;if(USERS[u]&&USERS[u]===p)enter(u);else $("lerr").textContent="Nom d’utilisateur ou mot de passe incorrect."}
+$("lgo").onclick=tryLogin;$("lp").addEventListener("keydown",e=>{if(e.key==="Enter")tryLogin()});
+$("bout").onclick=()=>{ME=null;try{localStorage.removeItem("cakecost.user")}catch(e){}$("login").hidden=false};
+async function put(name,data){
+ let dl=null;try{dl=await window.claude.use("downloads")}catch(e){}
+ if(dl)return dl.save({filename:name,data});
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data]));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+}
+document.querySelectorAll(".bsave").forEach(b=>b.onclick=saveAll);
+async function saveAll(){
+ const num=v=>+v||0,T=c=>c.type==="rs"?"Réseaux sociaux":"Particulier";
+ const mats=[["Matière première","Unité d’achat","Prix (MAD) par unité"],...S.materials.map(m=>[m.name,UN[m.unit],num(m.price)])];
+ const rl=[["Gâteau","Matière première","Quantité utilisée","Unité","Prix (MAD) par unité d’achat","Coût (MAD)"]],rs=[["Gâteau","Matières premières (MAD)","Autres frais (MAD)","Coût de revient (MAD)","Marge (%)","Prix de vente conseillé (MAD)"]];
+ S.recipes.forEach(r=>{let t=0;r.items.forEach(i=>{const m=mat(i.m);if(!m)return;const c=lp(m,i.p)*i.q;t+=c;rl.push([r.name,m.name,i.q,bu(m),num(i.p!=null?i.p:m.price),+c.toFixed(2)])});const cr=t+num(r.extra);rs.push([r.name,+t.toFixed(2),num(r.extra),+cr.toFixed(2),num(r.margin),+(cr*(1+num(r.margin)/100)).toFixed(2)])});
+ const cl=[["Client","Téléphone","Adresse","Type","Commandes","Total à facturer (MAD)"]],od=[["Client","Téléphone","Date","Gâteau","Coût de revient (MAD)","Prix de vente (MAD)","Remise (MAD)","Total à facturer (MAD)","Bénéfice (MAD)","Ajouté par"]];
+ let tp=0,tr=0,tc=0;
+ S.clients.forEach(c=>{let net=0;c.orders.forEach(o=>{net+=o.price-o.remise;tp+=o.price;tr+=o.remise;tc+=num(o.cost);od.push([c.name,c.phone,dfr(o.d),o.cake,num(o.cost),num(o.price),num(o.remise),+(o.price-o.remise).toFixed(2),+(o.price-o.remise-num(o.cost)).toFixed(2),o.by||""])});cl.push([c.name,c.phone,c.address,T(c),c.orders.length,+net.toFixed(2)])});
+ od.push(["TOTAL","","","",+tc.toFixed(2),+tp.toFixed(2),+tr.toFixed(2),+(tp-tr).toFixed(2),+(tp-tr-tc).toFixed(2),""]);
+ const stamp=new Date().toISOString().slice(0,10),raw=JSON.stringify({materials:S.materials,recipes:S.recipes,clients:S.clients});let data,name;
+ if(window.XLSX){
+  const wb=XLSX.utils.book_new();
+  [["Clients",cl],["Commandes",od],["Gâteaux",rs],["Recettes",rl],["Matières",mats],["Base",[["Données de restauration : ne pas modifier"],...(raw.match(/[^]{1,30000}/g)||[]).map(x=>[x])]]].forEach(([n,a])=>{const ws=XLSX.utils.aoa_to_sheet(a);ws["!cols"]=a[0].map(h=>({wch:Math.max(14,String(h).length+2)}));XLSX.utils.book_append_sheet(wb,ws,n)});
+  data=XLSX.write(wb,{bookType:"xlsx",type:"array"});name="youmi-cake-sauvegarde-"+stamp+".xlsx";
+ }else{data=raw;name="youmi-cake-sauvegarde-"+stamp+".json"}
+ try{await put(name,data);setSync("✅ Sauvegarde téléchargée")}catch(e){if(!e||e.code!=="declined")setSync("⚠️ Téléchargement impossible"+(e&&e.code?" ("+e.code+")":""))}
+}
+$("bres").onclick=()=>$("fres").click();
+$("fres").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
+ try{
+  let o;
+  if(/\.json$/i.test(f.name))o=JSON.parse(await f.text());
+  else{const wb=XLSX.read(await f.arrayBuffer(),{type:"array"});o=JSON.parse(XLSX.utils.sheet_to_json(wb.Sheets["Base"],{header:1}).slice(1).map(r=>r[0]||"").join(""))}
+  if(!o.materials||!o.recipes||!o.clients)throw 0;
+  dlg("Restaurer la sauvegarde",`<p>Remplacer toutes les données actuelles (${S.clients.length} client(s), ${S.recipes.length} gâteau(x)) par celles du fichier ?</p>`,()=>{S.materials=o.materials;S.recipes=o.recipes;S.clients=o.clients;S.cur=(S.recipes[S.recipes.length-1]||{}).id;save();curCl=null;loadFix();renderCalc();renderMats();renderClients()});
+ }catch(err){dlg("Restauration impossible","<p>Ce fichier n’est pas une sauvegarde Youmi Cake valide.</p>",null)}
 };
-
-$("n1").onclick = () => {
-  $("t1").hidden = false;
-  $("t2").hidden = true;
-  $("n1").className = "on";
-  $("n2").className = "";
-};
-
-$("n2").onclick = () => {
-  $("t1").hidden = true;
-  $("t2").hidden = false;
-  $("n1").className = "";
-  $("n2").className = "on";
-  renderMats();
-};
-
-$("extra").oninput = totals;
-$("margin").oninput = totals;
-
-renderCalc();
+function loadFix(){if(!S.recipes.length)S.recipes.push({id:uid(),name:"Nouveau gâteau",items:[],margin:100,extra:0});if(!S.recipes.some(r=>r.id===S.cur))S.cur=S.recipes[S.recipes.length-1].id}
+function boot(){
+ let u=null;try{u=localStorage.getItem("cakecost.user")}catch(e){}
+ loadData();renderCalc();renderMats();renderClients();
+ if(u&&USERS[u])enter(u);else setSync();
+}
+boot();
 </script>
 </body>
 </html>
