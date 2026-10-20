@@ -212,15 +212,79 @@ $("bord").onclick=()=>{
  rec().items=[];rec().extra=0;save();$("bill").value="";$("rem").value="";renderClients();renderCalc();
  const b=$("bord");b.textContent="✓ Ajoutée à "+cl.name;setTimeout(()=>b.textContent="Ajouter la commande",2500);
 };
-const KEY="youmi.cake.v1",USERS={imad:"youmi2026",maryam:"youmi2026"};
+const KEY="youmi.cake.v1";
 const SEED={"materials":[{"id":1,"name":"Farine","price":10,"unit":"kg"},{"id":2,"name":"Sucre","price":10,"unit":"kg"},{"id":3,"name":"Œufs","price":1.39,"unit":"pc"},{"id":4,"name":"crème fraiche","price":34,"unit":"L"},{"id":5,"name":"Gélatine","price":1.5,"unit":"pc"},{"id":6,"name":"Colorant","price":5,"unit":"pc"},{"id":7,"name":"Feuilletine","price":10,"unit":"g"},{"id":8,"name":"Crème bueno","price":20,"unit":"g"},{"id":9,"name":"Crème pistache","price":18,"unit":"g"},{"id":10,"name":"Pistache","price":10,"unit":"kg"},{"id":11,"name":"noisette","price":10,"unit":"g"},{"id":12,"name":"Noix","price":10,"unit":"kg"},{"id":13,"name":"Chocolat riche NOIR","price":35,"unit":"kg"},{"id":14,"name":"Chocolat riche BLANC","price":35,"unit":"kg"},{"id":15,"name":"Chocolat riche AU LAIT","price":35,"unit":"kg"},{"id":16,"name":"Chocolat Normal","price":4,"unit":"g"},{"id":17,"name":"Poudre chocolat noir","price":10,"unit":"g"},{"id":18,"name":"les boules","price":5,"unit":"pc"},{"id":19,"name":"topper","price":6,"unit":"pc"},{"id":20,"name":"Pâte à sucre","price":60,"unit":"kg"},{"id":21,"name":"Boîte à gâteau petite","price":2,"unit":"pc"},{"id":22,"name":"Boîte à gâteau normal","price":2,"unit":"pc"},{"id":23,"name":"Box cake grand","price":30,"unit":"pc"},{"id":24,"name":"Beurre","price":10,"unit":"g"},{"id":25,"name":"Bougie","price":12,"unit":"pc"},{"id":26,"name":"Papier couisson","price":5,"unit":"pc"},{"id":27,"name":"Papier waffer","price":4,"unit":"pc"},{"id":28,"name":"Fleur normal","price":5,"unit":"pc"},{"id":29,"name":"Fleur artificiel","price":15,"unit":"pc"},{"id":30,"name":"happy birthday","price":8,"unit":"pc"},{"id":31,"name":"Livraison","price":20,"unit":"pc"}],"recipes":[{"extra":0,"id":100,"items":[{"m":1,"q":50},{"m":2,"q":50},{"m":3,"q":2},{"m":31,"q":1}],"margin":100,"name":"MINI CAKE"},{"extra":0,"id":101,"items":[{"m":1,"q":100},{"m":2,"q":100},{"m":3,"q":3},{"m":4,"q":200},{"m":31,"q":1}],"margin":100,"name":"CAKE 4P"},{"extra":0,"id":102,"items":[{"m":31,"q":1}],"margin":100,"name":"CAKEDESIGN 4P"},{"extra":0,"id":103,"items":[{"m":31,"q":1}],"margin":100,"name":"CAKEDESIGN 8P"},{"extra":0,"id":104,"items":[{"m":1,"q":170},{"m":2,"q":160},{"m":3,"q":6},{"m":4,"q":500},{"m":5,"q":4},{"m":7,"q":0.8},{"m":8,"q":1},{"m":9,"q":1},{"m":10,"q":1000},{"m":11,"q":1},{"m":12,"q":1000},{"m":13,"q":150},{"m":14,"q":150},{"m":16,"q":0.1},{"m":17,"q":0.4},{"m":18,"q":10},{"m":19,"q":1},{"m":20,"q":100},{"m":23,"q":1},{"m":25,"q":4},{"m":26,"q":1},{"m":27,"q":3},{"m":28,"q":5},{"m":29,"q":1},{"m":31,"q":1}],"margin":100,"name":"CAKE DESIGN 10/15P"}],"clients":[{"address":"","id":1792325172662603,"name":"lamzal","orders":[],"phone":"","type":"part"}],"cur":104,"v":2};
+/* ===== FIREBASE : collez ici la configuration de votre application web (Console Firebase > Paramètres du projet > Vos applications) ===== */
+const FB_CONFIG={
+ apiKey:"AIzaSyDWxcCq_NS_YqICMblvnWqFJX9hkbATT1Y",
+ authDomain:"youmimanager.firebaseapp.com",
+ projectId:"youmimanager",
+ storageBucket:"youmimanager.firebasestorage.app",
+ messagingSenderId:"641896853145",
+ appId:"1:641896853145:web:dcfce191c0334a4e6f9208"
+};
+const FB_ON=/^AIza/.test(FB_CONFIG.apiKey),FB_VER="10.14.1",FB_BASE="https://www.gstatic.com/firebasejs/"+FB_VER+"/",MAILDOM="@youmicake.app";
+const COLL=["materials","recipes","clients"],last={materials:{},recipes:{},clients:{}},ready={};
+let FS=null,fbUnsub=[],seededOK=false,stale=false;
 let ME=null;
 const cap=u=>u?u[0].toUpperCase()+u.slice(1):"";
 function uid(){return Date.now()*1000+Math.floor(Math.random()*1000)}
-function setSync(t){$("sync").textContent=(ME?"👤 "+cap(ME)+" · ":"")+(t||"💾 Données enregistrées sur cet appareil")}
+function setSync(t){$("sync").textContent=(ME?"👤 "+cap(ME)+" · ":"")+(t||(FS?"🟢 Synchronisé en direct":"💾 Données enregistrées sur cet appareil"))}
 function save(){
  try{localStorage.setItem(KEY,JSON.stringify({v:2,materials:S.materials,recipes:S.recipes,clients:S.clients,cur:S.cur}))}
  catch(e){setSync("⚠️ Enregistrement impossible sur cet appareil")}
+ fsSave();
+}
+function fsSave(){
+ if(!FS||!ME||!COLL.every(k=>ready[k]))return;
+ const F=FS.F,db=FS.db,bad=e=>setSync("⚠️ Écriture refusée ("+((e&&e.code)||"erreur")+")");
+ COLL.forEach(c=>{
+  const now={};S[c].forEach(d=>{now[d.id]=JSON.stringify(d)});
+  for(const id in now)if(last[c][id]!==now[id]){last[c][id]=now[id];F.setDoc(F.doc(db,c,String(id)),JSON.parse(now[id])).catch(bad)}
+  for(const id in last[c])if(!(id in now)){delete last[c][id];F.deleteDoc(F.doc(db,c,String(id))).catch(bad)}
+ });
+}
+function merge(c,docs){
+ const ids=new Set(docs.map(d=>d.id));
+ docs.forEach(d=>{const o=S[c].find(x=>x.id===d.id);if(o){Object.keys(o).forEach(k=>delete o[k]);Object.assign(o,d)}else S[c].push(d)});
+ S[c]=S[c].filter(x=>ids.has(x.id));S[c].sort((a,b)=>a.id-b.id);
+}
+function rerender(){
+ const a=document.activeElement;
+ if(a&&/INPUT|SELECT/.test(a.tagName)&&!a.closest("#dlg")&&a.closest("#items,.tot,#sel")){stale=true;return}
+ stale=false;renderCalc();renderMats();renderClients();
+}
+document.addEventListener("focusout",()=>setTimeout(()=>{if(stale)rerender()},80));
+function applySnap(c,snap){
+ if(snap.metadata.hasPendingWrites)return;
+ if(snap.empty&&(snap.metadata.fromCache||!seededOK))return;
+ const docs=snap.docs.map(d=>d.data());
+ merge(c,docs);last[c]={};docs.forEach(d=>{last[c][d.id]=JSON.stringify(d)});ready[c]=true;
+ const had=S.recipes.length;loadFix();if(!had)save();
+ setSync();rerender();
+}
+async function fbInit(){
+ try{
+  const [A,Au,F]=await Promise.all([import(FB_BASE+"firebase-app.js"),import(FB_BASE+"firebase-auth.js"),import(FB_BASE+"firebase-firestore.js")]);
+  const app=A.initializeApp(FB_CONFIG);let db;
+  try{db=F.initializeFirestore(app,{localCache:F.persistentLocalCache({tabManager:F.persistentMultipleTabManager()})})}catch(e){db=F.getFirestore(app)}
+  FS={A,Au,F,app,db,auth:Au.getAuth(app)};return true;
+ }catch(e){console.warn(e);return false}
+}
+async function ensureSeed(){
+ const F=FS.F,db=FS.db;
+ try{
+  const m=await F.getDoc(F.doc(db,"meta","init"));
+  if(m.exists()){seededOK=true;return}
+  const b=F.writeBatch(db);
+  COLL.forEach(c=>S[c].forEach(d=>b.set(F.doc(db,c,String(d.id)),JSON.parse(JSON.stringify(d)))));
+  b.set(F.doc(db,"meta","init"),{done:true,by:ME||"",at:Date.now()});
+  await b.commit();seededOK=true;
+  COLL.forEach(c=>{last[c]={};S[c].forEach(d=>{last[c][d.id]=JSON.stringify(d)});ready[c]=true});
+ }catch(e){setSync("⚠️ Initialisation impossible ("+((e&&e.code)||"erreur")+")")}
+}
+function startSync(){
+ fbUnsub.forEach(f=>f());fbUnsub=COLL.map(c=>FS.F.onSnapshot(FS.F.collection(FS.db,c),snap=>applySnap(c,snap),err=>setSync("⚠️ Synchronisation interrompue ("+((err&&err.code)||"erreur")+")")));
 }
 function loadData(){
  let d=null;
@@ -238,10 +302,16 @@ function loadData(){
  if(!S.recipes.some(r=>r.id===S.cur))S.cur=S.recipes[S.recipes.length-1].id;
  if(mg)save();
 }
-function enter(u){ME=u;try{localStorage.setItem("cakecost.user",u)}catch(e){}$("login").hidden=true;$("lp").value="";$("lerr").textContent="";setSync()}
-function tryLogin(){const u=$("lu").value.trim().toLowerCase(),p=$("lp").value;if(USERS[u]&&USERS[u]===p)enter(u);else $("lerr").textContent="Nom d’utilisateur ou mot de passe incorrect."}
+const em=u=>u.includes("@")?u:u+MAILDOM;
+function enter(u){ME=u;$("login").hidden=true;$("lp").value="";$("lerr").textContent="";setSync(FS?"Synchronisation…":"")}
+async function tryLogin(){
+ const u=$("lu").value.trim().toLowerCase(),p=$("lp").value;
+ if(!u||!p){$("lerr").textContent="Saisissez le nom d’utilisateur et le mot de passe.";return}
+ try{$("lerr").textContent="Connexion…";await FS.Au.signInWithEmailAndPassword(FS.auth,em(u),p)}
+ catch(e){$("lerr").textContent=/network/.test((e&&e.code)||"")?"Pas de connexion internet.":"Nom d’utilisateur ou mot de passe incorrect."}
+}
 $("lgo").onclick=tryLogin;$("lp").addEventListener("keydown",e=>{if(e.key==="Enter")tryLogin()});
-$("bout").onclick=()=>{ME=null;try{localStorage.removeItem("cakecost.user")}catch(e){}$("login").hidden=false};
+$("bout").onclick=()=>{if(FS)FS.Au.signOut(FS.auth)};
 async function put(name,data){
  let dl=null;try{dl=await window.claude.use("downloads")}catch(e){}
  if(dl)return dl.save({filename:name,data});
@@ -276,11 +346,16 @@ $("fres").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)r
  }catch(err){dlg("Restauration impossible","<p>Ce fichier n’est pas une sauvegarde Youmi Cake valide.</p>",null)}
 };
 function loadFix(){if(!S.recipes.length)S.recipes.push({id:uid(),name:"Nouveau gâteau",items:[],margin:100,extra:0});if(!S.recipes.some(r=>r.id===S.cur))S.cur=S.recipes[S.recipes.length-1].id}
-function boot(){
- const li=$("lgl"),fb=()=>{li.onerror=null;li.src=document.querySelector(".lg").src};li.onerror=fb;if(li.complete&&!li.naturalWidth)fb();
- let u=null;try{u=localStorage.getItem("cakecost.user")}catch(e){}
+async function boot(){
  loadData();renderCalc();renderMats();renderClients();
- if(u&&USERS[u])enter(u);else setSync();
+ if(!FB_ON||!(await fbInit())){
+  $("login").hidden=true;$("bout").hidden=true;
+  setSync(FB_ON?"⚠️ Firebase indisponible : mode local sur cet appareil":"💾 Mode local (Firebase non configuré)");return;
+ }
+ FS.Au.onAuthStateChanged(FS.auth,async u=>{
+  if(u){enter(u.email.split("@")[0]);await ensureSeed();startSync()}
+  else{fbUnsub.forEach(f=>f());fbUnsub=[];for(const k in ready)delete ready[k];seededOK=false;ME=null;$("login").hidden=false;setSync("Déconnecté")}
+ });
 }
 boot();
 </script>
